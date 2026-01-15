@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Dinith Dilshan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">DINITH<span>DILSHAN</span></a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="portfolio.html" class="active">Portfolio</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <div class="portfolio-header">
+        <h1>Selected Projects</h1>
+        <p>Showcasing creativity across branding, design, and digital media</p>
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all"><span>All Projects</span></button>
+            <button class="filter-btn" data-filter="branding"><span>Branding</span></button>
+            <button class="filter-btn" data-filter="social"><span>Social Media</span></button>
+            <button class="filter-btn" data-filter="video"><span>Videos</span></button>
+            <button class="filter-btn" data-filter="art"><span>Fine Arts</span></button>
+        </div>
+    </div>
+
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+
+    <footer>
+        <div class="footer-content">
+            <h2>Let's create something amazing.</h2>
+            <p>Available for freelance projects and collaborations.</p>
+            <div class="social-links">
+                <a href="#" target="_blank">Behance</a>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">LinkedIn</a>
+            </div>
+            <a href="contact.html" class="btn">Get In Touch</a>
+            <p style="margin-top: 60px; color: #555; font-size: 0.85rem;">&copy; 2026 Dinith Dilshan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const theme = body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateThemeIcon(theme);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        /* ============================================
+           🎨 මෙහි ඔබේ PROJECTS ADD කරන්න
+           ============================================ */
+
+        const myProjects = [
+            {
+                title: "Corporate Brand Identity",
+                category: "branding",
+                description: "Complete brand identity including logo, colors, and typography for a modern tech startup. Features minimalist design with bold accents.",
+                type: "image",
+                media: "projects/Branding_Maxwell.jpg"
+            },
+            {
+                title: "Minimalist Tech Logo",
+                category: "branding",
+                description: "Clean and modern logo design for a software company. Emphasizes simplicity and scalability across all platforms.",
+                type: "image",
+                media: "projects/Branding_BusinessCard.jpg"
+            },
+            {
+                title: "Video Advertisement",
+                category: "video",
+                description: "4K cinematic travel video featuring breathtaking landscapes with professional color grading and smooth transitions.",
+                type: "video",
+                media: "projects/Video_GammaAD.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800"
+            },
+            {
+                title: "Company Profile Design",
+                category: "branding",
+                description: "Company Profile Design - Maxwell Engineering",
+                type: "image",
+                media: "projects/Branding_Maxwell_Profile.jpg"
+            },
+            {
+                title: "Product Launch Campaign",
+                category: "social",
+                description: "Eye-catching social media design series for new product announcement. Includes Instagram, Facebook, and Twitter formats.",
+                type: "image",
+                media: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800"
+            },
+            {
+                title: "Book Cover Design",
+                category: "art",
+                description: "Realistic charcoal portrait with detailed shading techniques. Focus on capturing emotion and depth through light and shadow.",
+                type: "image",
+                media: "projects/Art_ICTNadeeka.jpg"
+            },
+            {
+                title: "YouTube Gaming Intro",
+                category: "video",
+                description: "Dynamic gaming channel intro with motion graphics, 3D effects, and energetic music sync. Perfect for esports content.",
+                type: "video",
+                media: "https://videos.pexels.com/video-files/3945008/3945008-uhd_2560_1440_30fps.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800"
+            },
+            {
+                title: "Luxury Real Estate Branding",
+                category: "branding",
+                description: "Premium logo and brand identity for a luxury real estate company. Sophisticated design conveying trust and exclusivity.",
+                type: "image",
+                media: "projects/Branding_Gamma.png"
+            },
+            {
+                title: "Instagram Story Templates",
+                category: "social",
+                description: "Set of 10 modern Instagram story templates for businesses. Fully customizable with trendy gradients and typography.",
+                type: "image",
+                media: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800"
+            }
+        ];
+
+        // DOM Elements
+        const grid = document.getElementById('portfolioGrid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Display Projects Function
+        function displayProjects(filterType = 'all') {
+            grid.innerHTML = ""; 
+            
+            const filtered = filterType === 'all' 
+                ? myProjects 
+                : myProjects.filter(p => p.category === filterType);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                        <h3>No projects yet</h3>
+                        <p>Projects in this category are coming soon!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach((project, index) => {
+                const item = document.createElement('div');
+                item.className = 'portfolio-item';
+                item.style.animationDelay = `${index * 0.1}s`;
+                
+                let mediaHTML = '';
+                if (project.type === 'video') {
+                    mediaHTML = `
+                        <img src="${project.thumbnail}" alt="${project.title}" class="video-thumbnail">
+                        <video src="${project.media}" loop playsinline class="project-video"></video>
+                        <div class="play-icon">▶</div>
+                        <div class="video-controls">
+                            <button class="pause-btn">⏸ Pause</button>
+                        </div>
+                    `;
+                } else {
+                    mediaHTML = `<img src="${project.media}" alt="${project.title}">`;
+                }
+
+                item.innerHTML = `
+                    ${mediaHTML}
+                    <div class="overlay">
+                        <h3>${project.title}</h3>
+                        <span class="category-tag">${project.category}</span>
+                        <p class="description">${project.description}</p>
+                    </div>
+                `;
+
+                // Video play/pause functionality
+                if (project.type === 'video') {
+                    const video = item.querySelector('.project-video');
+                    const playIcon = item.querySelector('.play-icon');
+                    const pauseBtn = item.querySelector('.pause-btn');
+                    
+                    playIcon.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        video.play();
+                        item.classList.add('video-playing');
+                    });
+                    
+                    pauseBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        video.pause();
+                        video.currentTime = 0;
+                        item.classList.remove('video-playing');
+                    });
+                    
+                    video.addEventListener('ended', () => {
+                        item.classList.remove('video-playing');
+                    });
+                }
+
+                // Click functionality
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    this.classList.add('clicked');
+                    setTimeout(() => this.classList.remove('clicked'), 600);
+                    
+                    setTimeout(() => {
+                        const categoryBtn = document.querySelector(`[data-filter="${project.category}"]`);
+                        if (categoryBtn && project.category !== filterType) {
+                            filterBtns.forEach(b => b.classList.remove('active'));
+                            categoryBtn.classList.add('active');
+                            displayProjects(project.category);
+                            window.scrollTo({ top: 250, behavior: 'smooth' });
+                        }
+                    }, 300);
+                });
+
+                grid.appendChild(item);
+            });
+        }
+
+        // Filter functionality
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-filter');
+                displayProjects(category);
+                
+                setTimeout(() => {
+                    window.scrollTo({ top: 250, behavior: 'smooth' });
+                }, 100);
+            });
+        });
+
+        // Initialize
+        displayProjects('all');
+    </script>
+</body>
+</html>
