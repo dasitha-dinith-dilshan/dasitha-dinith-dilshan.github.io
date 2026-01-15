@@ -1,7 +1,7 @@
 /* ======================================
    GLOBAL STYLES & VARIABLES
    ====================================== */
-:root {
+   :root {
     --primary-color: #000000;
     --accent-color: #ff4757;
     --accent-hover: #ff6b81;
@@ -51,7 +51,7 @@ body {
    NAVIGATION (SHARED)
    ====================================== */
 header {
-    padding: 20px 8%; 
+    padding: 15px 5%; 
     display: flex; 
     justify-content: space-between;
     align-items: center; 
@@ -66,7 +66,7 @@ header {
 }
 
 .logo { 
-    font-size: 1.4rem; 
+    font-size: 1.2rem; 
     font-weight: 800; 
     text-decoration: none; 
     color: var(--primary-color);
@@ -82,17 +82,17 @@ header {
 nav {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 nav a { 
     text-decoration: none; 
     color: var(--text-primary); 
-    margin-left: 30px; 
+    margin-left: 15px; 
     font-weight: 500; 
     transition: 0.3s;
     position: relative;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
 }
 
 nav a:hover, nav a.active { 
@@ -113,15 +113,15 @@ nav a.active::after {
 .theme-toggle {
     background: var(--card-bg);
     border: 2px solid var(--border-color);
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .theme-toggle:hover {
@@ -132,7 +132,7 @@ nav a.active::after {
 
 .theme-toggle i {
     color: var(--text-primary);
-    font-size: 1.1rem;
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
@@ -145,7 +145,7 @@ nav a.active::after {
    ====================================== */
 .btn {
     display: inline-block;
-    padding: 15px 35px;
+    padding: 14px 30px;
     background: var(--accent-color);
     color: #fff;
     text-decoration: none;
@@ -154,6 +154,7 @@ nav a.active::after {
     transition: all 0.3s;
     margin-top: 10px;
     box-shadow: 0 8px 30px rgba(255, 71, 87, 0.4);
+    font-size: 0.95rem;
 }
 
 .btn:hover {
@@ -166,20 +167,20 @@ nav a.active::after {
    FOOTER (SHARED)
    ====================================== */
 footer { 
-    padding: 80px 8%; 
+    padding: 60px 5%; 
     background: var(--footer-bg);
     color: #fff; 
     text-align: center; 
 }
 
 .footer-content h2 { 
-    font-size: 2.3rem; 
+    font-size: 2rem; 
     margin-bottom: 20px;
     font-weight: 700;
 }
 
 .footer-content > p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #999;
 }
 
@@ -189,9 +190,9 @@ footer {
 
 .social-links a { 
     color: #fff; 
-    margin: 0 15px; 
+    margin: 0 12px; 
     text-decoration: none; 
-    font-size: 1rem; 
+    font-size: 0.95rem; 
     transition: all 0.3s;
     font-weight: 500;
 }
@@ -206,7 +207,7 @@ footer {
    ====================================== */
 .hero-slider {
     position: relative; 
-    height: 85vh; 
+    height: 70vh; 
     width: 100%; 
     overflow: hidden; 
     background: #000;
@@ -234,21 +235,22 @@ footer {
 .hero-text {
     position: absolute; 
     top: 50%; 
-    left: 8%; 
+    left: 5%; 
     transform: translateY(-50%);
     color: white; 
-    max-width: 700px; 
+    max-width: 90%; 
     z-index: 2;
+    padding: 20px;
 }
 
 .hero-text h1 { 
-    font-size: 3.5rem; 
+    font-size: 2.5rem; 
     line-height: 1.1; 
     margin-bottom: 10px; 
 }
 
 .hero-text p { 
-    font-size: 1.2rem; 
+    font-size: 1rem; 
     margin-bottom: 20px; 
     color: #ccc; 
 }
@@ -260,8 +262,8 @@ footer {
     background: rgba(255,255,255,0.1); 
     color: #fff; 
     border: none;
-    width: 50px; 
-    height: 50px; 
+    width: 45px; 
+    height: 45px; 
     border-radius: 50%; 
     cursor: pointer; 
     z-index: 10;
@@ -269,28 +271,28 @@ footer {
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .control-btn:hover { 
     background: var(--accent-color); 
 }
 
-.prev-btn { left: 20px; } 
-.next-btn { right: 20px; }
+.prev-btn { left: 15px; } 
+.next-btn { right: 15px; }
 
 /* ======================================
    HOME PAGE - ABOUT SECTION WITH PROFILE
    ====================================== */
 .about-section {
-    padding: 100px 8%;
+    padding: 60px 5%;
     background: var(--card-bg);
 }
 
 .about-container {
     display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 80px;
+    grid-template-columns: 1fr;
+    gap: 40px;
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -298,13 +300,16 @@ footer {
 
 .profile-card {
     position: relative;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .profile-image-wrapper {
     position: relative;
     width: 100%;
+    max-width: 350px;
+    margin: 0 auto 30px;
     aspect-ratio: 1;
-    margin-bottom: 30px;
 }
 
 .profile-image {
@@ -336,10 +341,10 @@ footer {
 
 .profile-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
     background: var(--bg-light);
-    padding: 30px 20px;
+    padding: 25px 15px;
     border-radius: 15px;
 }
 
@@ -348,24 +353,24 @@ footer {
 }
 
 .stat-item h3 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--accent-color);
     margin-bottom: 5px;
     font-weight: 800;
 }
 
 .stat-item p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-light);
 }
 
 .about-content {
-    max-width: 700px;
+    max-width: 100%;
 }
 
 .about-label {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 3px;
     color: var(--accent-color);
@@ -374,33 +379,33 @@ footer {
 }
 
 .about-content h2 {
-    font-size: 3rem;
+    font-size: 2rem;
     line-height: 1.1;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-weight: 800;
     letter-spacing: -1px;
 }
 
 .about-content p {
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 0.95rem;
+    line-height: 1.7;
     color: var(--text-light);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .skills-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin: 30px 0;
+    gap: 10px;
+    margin: 25px 0;
 }
 
 .skill-tag {
-    padding: 10px 20px;
+    padding: 8px 16px;
     background: var(--bg-light);
     border: 2px solid var(--border-color);
     border-radius: 50px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-primary);
     transition: all 0.3s ease;
@@ -417,29 +422,33 @@ footer {
    HOME PAGE - SERVICES SECTION
    ====================================== */
 .services { 
-    padding: 100px 8%; 
+    padding: 60px 5%; 
     background: var(--bg-light); 
 }
 
 .section-header { 
     text-align: center; 
-    margin-bottom: 60px; 
+    margin-bottom: 40px; 
 }
 
 .section-header h2 { 
-    font-size: 2.5rem; 
+    font-size: 2rem; 
     margin-bottom: 15px; 
+}
+
+.section-header p {
+    font-size: 0.95rem;
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 .service-card {
     background: var(--card-bg);
-    padding: 40px;
+    padding: 30px 20px;
     border-radius: 15px;
     transition: 0.3s;
     border: 1px solid var(--border-color);
@@ -447,9 +456,9 @@ footer {
 }
 
 .service-icon {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 25px;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
     background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
     border-radius: 15px;
     display: flex;
@@ -459,7 +468,7 @@ footer {
 }
 
 .service-icon i {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: #fff;
 }
 
@@ -473,25 +482,25 @@ footer {
 }
 
 .service-card h3 { 
-    margin-bottom: 15px; 
-    font-size: 1.5rem; 
+    margin-bottom: 12px; 
+    font-size: 1.3rem; 
 }
 
 .service-card p { 
     color: var(--text-light); 
-    font-size: 0.95rem; 
+    font-size: 0.9rem; 
 }
 
 /* ======================================
    PORTFOLIO PAGE - HEADER & FILTERS
    ====================================== */
 .portfolio-header { 
-    padding: 80px 8% 30px; 
+    padding: 60px 5% 30px; 
     text-align: center; 
 }
 
 .portfolio-header h1 { 
-    font-size: 3.5rem; 
+    font-size: 2.5rem; 
     margin-bottom: 15px; 
     letter-spacing: -2px;
     font-weight: 800;
@@ -503,27 +512,28 @@ footer {
 
 .portfolio-header p {
     color: var(--text-light);
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 20px;
+    padding: 0 10px;
 }
 
 .filter-container {
     display: flex; 
     justify-content: center; 
-    gap: 12px; 
-    padding: 30px 0 50px; 
+    gap: 8px; 
+    padding: 25px 0 40px; 
     flex-wrap: wrap;
 }
 
 .filter-btn {
-    padding: 12px 28px; 
+    padding: 10px 20px; 
     border: 2px solid var(--border-color); 
     background: var(--card-bg);
     cursor: pointer; 
     border-radius: 50px; 
     font-weight: 600; 
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--text-primary);
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     position: relative;
@@ -577,17 +587,17 @@ footer {
    ====================================== */
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px; 
-    padding: 0 8% 100px;
-    min-height: 400px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px; 
+    padding: 0 5% 60px;
+    min-height: 300px;
 }
 
 .portfolio-item {
     position: relative; 
     border-radius: 16px; 
     overflow: hidden;
-    height: 380px; 
+    height: 320px; 
     background: var(--card-bg);
     cursor: pointer;
     box-shadow: var(--card-shadow);
@@ -622,6 +632,29 @@ footer {
     transform: scale(1.1); 
 }
 
+/* Project Date Badge */
+.project-date {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.project-date i {
+    font-size: 0.75rem;
+}
+
 .overlay {
     position: absolute; 
     inset: 0; 
@@ -633,7 +666,7 @@ footer {
     opacity: 0; 
     transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     color: #fff; 
-    padding: 35px; 
+    padding: 25px; 
     text-align: center;
 }
 
@@ -642,8 +675,8 @@ footer {
 }
 
 .overlay h3 { 
-    font-size: 1.5rem; 
-    margin-bottom: 12px; 
+    font-size: 1.2rem; 
+    margin-bottom: 10px; 
     font-weight: 700;
     transform: translateY(20px);
     transition: transform 0.4s 0.1s;
@@ -654,14 +687,14 @@ footer {
 }
 
 .overlay .category-tag { 
-    font-size: 0.75rem; 
+    font-size: 0.65rem; 
     color: #fff; 
     font-weight: 700; 
     text-transform: uppercase; 
     letter-spacing: 2px; 
-    margin-bottom: 18px;
+    margin-bottom: 15px;
     background: rgba(255,255,255,0.2);
-    padding: 6px 16px;
+    padding: 5px 14px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     transform: translateY(20px);
@@ -673,13 +706,17 @@ footer {
 }
 
 .overlay .description { 
-    font-size: 0.85rem; 
-    line-height: 1.6; 
+    font-size: 0.8rem; 
+    line-height: 1.5; 
     color: rgba(255,255,255,0.95); 
     font-weight: 400; 
     max-width: 90%;
     transform: translateY(20px);
     transition: transform 0.4s 0.2s;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .portfolio-item:hover .overlay .description {
@@ -706,16 +743,16 @@ footer {
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%);
-    width: 70px; 
-    height: 70px; 
+    width: 60px; 
+    height: 60px; 
     background: rgba(255, 71, 87, 0.95);
     border-radius: 50%; 
     display: flex; 
     align-items: center; 
     justify-content: center;
     color: #fff; 
-    font-size: 24px; 
-    padding-left: 6px;
+    font-size: 20px; 
+    padding-left: 5px;
     transition: all 0.3s;
     box-shadow: 0 8px 30px rgba(255, 71, 87, 0.5);
     cursor: pointer;
@@ -746,7 +783,7 @@ footer {
     left: 0;
     right: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-    padding: 20px;
+    padding: 15px;
     opacity: 0;
     transition: opacity 0.3s;
     z-index: 11;
@@ -760,10 +797,11 @@ footer {
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid #fff;
     color: #fff;
-    padding: 8px 20px;
+    padding: 6px 16px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.85rem;
     transition: all 0.3s;
     backdrop-filter: blur(10px);
 }
@@ -795,21 +833,25 @@ footer {
 .empty-state {
     grid-column: 1/-1;
     text-align: center;
-    padding: 80px 20px;
+    padding: 60px 20px;
     color: var(--text-muted);
 }
 
 .empty-state svg {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     margin-bottom: 20px;
     opacity: 0.3;
 }
 
 .empty-state h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 10px;
     color: var(--text-light);
+}
+
+.empty-state p {
+    font-size: 0.9rem;
 }
 
 /* ======================================
@@ -817,16 +859,16 @@ footer {
    ====================================== */
 .contact-container {
     max-width: 1200px;
-    margin: 60px auto;
+    margin: 40px auto;
     padding: 0 5%;
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 60px;
+    grid-template-columns: 1fr;
+    gap: 40px;
     align-items: start;
 }
 
 .contact-info h1 {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     line-height: 1.1;
     margin-bottom: 20px;
     letter-spacing: -2px;
@@ -834,20 +876,20 @@ footer {
 
 .contact-info p {
     color: var(--text-muted);
-    font-size: 1.1rem;
-    margin-bottom: 40px;
+    font-size: 1rem;
+    margin-bottom: 30px;
 }
 
 .social-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: 1fr;
+    gap: 12px;
 }
 
 .social-card {
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 18px;
     background: var(--card-bg);
     border-radius: 12px;
     text-decoration: none;
@@ -857,7 +899,7 @@ footer {
 }
 
 .social-card i {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-right: 15px;
     width: 30px;
     text-align: center;
@@ -870,19 +912,19 @@ footer {
 }
 
 .social-card h3 { 
-    font-size: 0.95rem; 
+    font-size: 0.9rem; 
     margin-bottom: 2px; 
 }
 
 .social-card p { 
-    font-size: 0.8rem; 
+    font-size: 0.75rem; 
     color: var(--text-muted); 
     margin: 0; 
 }
 
 .form-card {
     background: var(--primary-color);
-    padding: 40px;
+    padding: 35px 25px;
     border-radius: 24px;
     color: white;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
@@ -893,27 +935,27 @@ footer {
 }
 
 .form-header { 
-    margin-bottom: 30px; 
+    margin-bottom: 25px; 
 }
 
 .form-header h2 { 
-    font-size: 1.8rem; 
+    font-size: 1.6rem; 
     margin-bottom: 10px; 
     color: #fff;
 }
 
 .form-header p { 
     color: #aaa; 
-    font-size: 0.9rem; 
+    font-size: 0.85rem; 
 }
 
 .form-group { 
-    margin-bottom: 20px; 
+    margin-bottom: 18px; 
 }
 
 .form-group label {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 8px;
@@ -925,10 +967,11 @@ footer {
     width: 100%;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
-    padding: 15px;
+    padding: 14px;
     border-radius: 10px;
     color: white;
     font-family: inherit;
+    font-size: 0.95rem;
     transition: 0.3s;
 }
 
@@ -941,13 +984,13 @@ footer {
 
 .submit-btn {
     width: 100%;
-    padding: 16px;
+    padding: 15px;
     background: var(--accent-color);
     color: white;
     border: none;
     border-radius: 10px;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -964,67 +1007,369 @@ footer {
 /* ======================================
    RESPONSIVE DESIGN
    ====================================== */
-@media (max-width: 1100px) {
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 50px;
-    }
-    
-    .profile-card {
-        max-width: 400px;
-        margin: 0 auto;
-    }
-}
 
-@media (max-width: 900px) {
-    .contact-container { 
-        grid-template-columns: 1fr; 
-        gap: 40px; 
+/* Tablet and Above */
+@media (min-width: 768px) {
+    header {
+        padding: 20px 8%;
     }
-    
-    .contact-info h1 { 
-        font-size: 2.5rem; 
-    }
-    
-    .social-grid { 
-        grid-template-columns: 1fr; 
-    }
-}
 
-@media (max-width: 768px) {
-    .portfolio-header h1 { 
-        font-size: 2.5rem; 
+    .logo {
+        font-size: 1.4rem;
     }
-    
-    .portfolio-grid { 
-        grid-template-columns: 1fr; 
-        padding: 0 5% 60px; 
+
+    nav a {
+        margin-left: 30px;
+        font-size: 0.95rem;
     }
-    
-    .filter-container { 
-        padding: 20px 0 30px; 
+
+    .theme-toggle {
+        width: 45px;
+        height: 45px;
+        margin-left: 20px;
     }
-    
-    nav a { 
-        margin-left: 20px; 
-        font-size: 0.9rem; 
+
+    .theme-toggle i {
+        font-size: 1.1rem;
     }
-    
+
+    .hero-slider {
+        height: 85vh;
+    }
+
+    .hero-text {
+        left: 8%;
+        max-width: 700px;
+        padding: 0;
+    }
+
     .hero-text h1 {
-        font-size: 2.5rem;
+        font-size: 3.5rem;
     }
-    
+
     .hero-text p {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
-    
-    .about-content h2 {
+
+    .control-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .prev-btn { left: 20px; }
+    .next-btn { right: 20px; }
+
+    .about-section {
+        padding: 100px 8%;
+    }
+
+    .about-container {
+        grid-template-columns: 400px 1fr;
+        gap: 80px;
+    }
+
+    .profile-image-wrapper {
+        max-width: none;
+    }
+
+    .profile-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 30px 20px;
+    }
+
+    .stat-item h3 {
         font-size: 2rem;
     }
-    
-    .theme-toggle {
+
+    .stat-item p {
+        font-size: 0.85rem;
+    }
+
+    .about-content h2 {
+        font-size: 3rem;
+        margin-bottom: 25px;
+    }
+
+    .about-content p {
+        font-size: 1.05rem;
+    }
+
+    .skills-tags {
+        gap: 12px;
+        margin: 30px 0;
+    }
+
+    .skill-tag {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+
+    .services {
+        padding: 100px 8%;
+    }
+
+    .section-header {
+        margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+        font-size: 2.5rem;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .service-card {
+        padding: 40px;
+    }
+
+    .service-icon {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 25px;
+    }
+
+    .service-icon i {
+        font-size: 1.8rem;
+    }
+
+    .service-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .service-card p {
+        font-size: 0.95rem;
+    }
+
+    .portfolio-header {
+        padding: 80px 8% 30px;
+    }
+
+    .portfolio-header h1 {
+        font-size: 3.5rem;
+    }
+
+    .portfolio-header p {
+        font-size: 1.1rem;
+        padding: 0;
+    }
+
+    .filter-container {
+        gap: 12px;
+        padding: 30px 0 50px;
+    }
+
+    .filter-btn {
+        padding: 12px 28px;
+        font-size: 0.9rem;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 30px;
+        padding: 0 8% 100px;
+    }
+
+    .portfolio-item {
+        height: 380px;
+    }
+
+    .overlay {
+        padding: 35px;
+    }
+
+    .overlay h3 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    .overlay .category-tag {
+        font-size: 0.75rem;
+        padding: 6px 16px;
+        margin-bottom: 18px;
+    }
+
+    .overlay .description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .play-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+        padding-left: 6px;
+    }
+
+    .video-controls {
+        padding: 20px;
+    }
+
+    .pause-btn {
+        padding: 8px 20px;
+        font-size: 1rem;
+    }
+
+    .project-date {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+    }
+
+    .contact-container {
+        margin: 60px auto;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 60px;
+    }
+
+    .contact-info h1 {
+        font-size: 3.5rem;
+    }
+
+    .contact-info p {
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+    }
+
+    .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .social-card {
+        padding: 20px;
+    }
+
+    .social-card i {
+        font-size: 1.5rem;
+    }
+
+    .social-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .social-card p {
+        font-size: 0.8rem;
+    }
+
+    .form-card {
+        padding: 40px;
+    }
+
+    .form-header {
+        margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .form-header p {
+        font-size: 0.9rem;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-size: 0.75rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 15px;
+        font-size: 1rem;
+    }
+
+    .submit-btn {
+        padding: 16px;
+        font-size: 1rem;
+    }
+
+    footer {
+        padding: 80px 8%;
+    }
+
+    .footer-content h2 {
+        font-size: 2.3rem;
+    }
+
+    .footer-content > p {
+        font-size: 1.1rem;
+    }
+
+    .social-links a {
+        margin: 0 15px;
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 15px 35px;
+        font-size: 1rem;
+    }
+}
+
+/* Small Mobile Adjustments */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    nav a {
         margin-left: 10px;
-        width: 40px;
-        height: 40px;
+        font-size: 0.75rem;
+    }
+
+    .theme-toggle {
+        width: 35px;
+        height: 35px;
+        margin-left: 8px;
+    }
+
+    .theme-toggle i {
+        font-size: 0.9rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+
+    .portfolio-header h1 {
+        font-size: 2rem;
+    }
+
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .portfolio-item {
+        height: 280px;
+    }
+
+    .contact-info h1 {
+        font-size: 2rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .service-card h3 {
+        font-size: 1.2rem;
     }
 }
