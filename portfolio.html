@@ -79,73 +79,93 @@
 
         /* ============================================
            🎨 මෙහි ඔබේ PROJECTS ADD කරන්න
-           ============================================ */
+           ============================================
+           
+           📝 Format එක මෙන්න:
+           {
+               title: "Project එකේ නම",
+               category: "branding / social / video / art",
+               description: "Project එක ගැන කෙටි විස්තරයක්",
+               type: "image" හෝ "video",
+               media: "Image/Video එකේ URL",
+               thumbnail: "Video එකට පමණක් - Thumbnail image URL",
+               date: "January 2026" // OPTIONAL - ඔබට date එකක් add කරන්න පුළුවන්
+           }
+        */
 
         const myProjects = [
             {
-                title: "Corporate Brand Identity",
+                title: "Custom Logo Design for Maxwell Engineering",
                 category: "branding",
-                description: "Complete brand identity including logo, colors, and typography for a modern tech startup. Features minimalist design with bold accents.",
+                description: "Designed a professional logo for Maxwell Engineering using client-provided text and reference samples. The design follows a clean, modern style with a strong red and blue color combination to represent trust, strength, and engineering excellence.",
                 type: "image",
-                media: "projects/Branding_Maxwell.jpg"
+                media: "projects/Branding_Maxwell.jpg",
+                date: "June 2025"
             },
             {
-                title: "Minimalist Tech Logo",
+                title: "Business cards for Maxwell Engineering",
                 category: "branding",
-                description: "Clean and modern logo design for a software company. Emphasizes simplicity and scalability across all platforms.",
+                description: "Designed professional business cards for Maxwell Engineering, using a clean layout and brand-consistent colors for a modern and corporate look.",
                 type: "image",
-                media: "projects/Branding_BusinessCard.jpg"
-            },
+                media: "projects/Branding_BusinessCard.jpg",
+                date: "July 2025"
+            },                   
             {
-                title: "Video Advertisement",
+                title: "Video Advertisement for Gamma Construction Company",
                 category: "video",
-                description: "4K cinematic travel video featuring breathtaking landscapes with professional color grading and smooth transitions.",
+                description: "Created a promotional video advertisement for Gamma Construction Company using engaging text and simple animations. A professional dubbing artist was used for the voice-over, which was enhanced using Adobe Podcast for improved audio clarity. The video was edited and finalized using Adobe Premiere Pro 2023 to deliver a clear and professional message.",
                 type: "video",
                 media: "projects/Video_GammaAD.mp4",
-                thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800"
+                thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800",
+                date: "September 2025"
             },
             {
-                title: "Company Profile Design",
+                title: "Company Profile Design for Maxwell Engineering",
                 category: "branding",
-                description: "Company Profile Design - Maxwell Engineering",
+                description: "Designed a professional company profile for Maxwell Engineering, including detailed company information. The layout follows a clean and modern design style to clearly present the company's services, strengths, and identity.",
                 type: "image",
-                media: "projects/Branding_Maxwell_Profile.jpg"
+                media: "projects/Branding_Maxwell_Profile.jpg",
+                date: "August 2025"
             },
             {
                 title: "Product Launch Campaign",
                 category: "social",
-                description: "Eye-catching social media design series for new product announcement. Includes Instagram, Facebook, and Twitter formats.",
+                description: "Eye-catching social media design series for new product announcement.",
                 type: "image",
                 media: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800"
             },
             {
-                title: "Book Cover Design",
+                title: "Book Cover Design for ICT Class",
                 category: "art",
-                description: "Realistic charcoal portrait with detailed shading techniques. Focus on capturing emotion and depth through light and shadow.",
+                description: "Designed a creative and professional book cover for an ICT class conducted by Ms. Nadeeka Fernando. The design focuses on a clean layout and visually appealing elements suitable for educational content.",
                 type: "image",
-                media: "projects/Art_ICTNadeeka.jpg"
+                media: "projects/Art_ICTNadeeka.jpg",
+                date: "May 2024"
             },
             {
-                title: "YouTube Gaming Intro",
+                title: "Video Advertisement for ICT Class",
                 category: "video",
-                description: "Dynamic gaming channel intro with motion graphics, 3D effects, and energetic music sync. Perfect for esports content.",
+                description: "Created a video advertisement for an ICT class conducted by Mr. Dilanaka Sandeepa using simple animations, text, and images. A professional dubbing artist was used for the voice-over, which was enhanced using Adobe Podcast. The video was edited and finalized using Adobe Premiere Pro 2023.",
                 type: "video",
-                media: "https://videos.pexels.com/video-files/3945008/3945008-uhd_2560_1440_30fps.mp4",
-                thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800"
+                media: "projects/Video_Dilanka ICT.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800",
+                date: "December 2025"
             },
             {
-                title: "Luxury Real Estate Branding",
-                category: "branding",
-                description: "Premium logo and brand identity for a luxury real estate company. Sophisticated design conveying trust and exclusivity.",
-                type: "image",
-                media: "projects/Branding_Gamma.png"
-            },
-            {
-                title: "Instagram Story Templates",
+                title: "Facebook Post Design for Gamma Construction",
                 category: "social",
-                description: "Set of 10 modern Instagram story templates for businesses. Fully customizable with trendy gradients and typography.",
+                description: "Designed a creative and engaging Facebook post for Gamma Construction to promote their services. The design focuses on a clean layout and strong visual appeal suitable for social media marketing.",
                 type: "image",
-                media: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800"
+                media: "projects/SM_00015.jpg"
+            },
+            {
+                title: "Small Video Advertisement for Gamma Construction",
+                category: "video",
+                description: "Created a short promotional video advertisement for Gamma Construction using Adobe Premiere Pro 2023. The video focuses on promoting new house construction services with a clear and simple message.",
+                type: "video",
+                media: "projects/Video_gammav1.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800",
+                date: "June 2025"
             }
         ];
 
@@ -193,8 +213,12 @@
                     mediaHTML = `<img src="${project.media}" alt="${project.title}">`;
                 }
 
+                // Add date badge if date exists
+                const dateBadge = project.date ? `<span class="project-date"><i class="far fa-calendar"></i> ${project.date}</span>` : '';
+
                 item.innerHTML = `
                     ${mediaHTML}
+                    ${dateBadge}
                     <div class="overlay">
                         <h3>${project.title}</h3>
                         <span class="category-tag">${project.category}</span>
@@ -210,6 +234,7 @@
                     
                     playIcon.addEventListener('click', (e) => {
                         e.stopPropagation();
+                        video.muted = false;
                         video.play();
                         item.classList.add('video-playing');
                     });
