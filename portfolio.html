@@ -166,6 +166,14 @@
                 media: "projects/Video_gammav1.mp4",
                 thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800",
                 date: "June 2025"
+            },
+            {
+                title: "Testing",
+                category: "branding",
+                description: "...",
+                type: "image",
+                media: ["projects/Branding_Maxwell.jpg", "projects/Branding_Maxwell_Profile.jpg", "projects/Branding_Maxwell3.jpg"],
+                date: "June 2025"
             }
         ];
 
@@ -210,7 +218,24 @@
                         </div>
                     `;
                 } else {
-                    mediaHTML = `<img src="${project.media}" alt="${project.title}">`;
+                    const images = Array.isArray(project.media) ? project.media : [project.media];
+                    if (images.length > 1) {
+                        const slides = images.map((src, i) => 
+                            `<img src="${src}" alt="${project.title}" class="slide ${i === 0 ? 'active' : ''}">`
+                        ).join('');
+                        mediaHTML = `
+                            <div class="slider-wrapper">
+                                ${slides}
+                                <button class="slider-btn prev" onclick="slideProject(this, -1)">&#8249;</button>
+                                <button class="slider-btn next" onclick="slideProject(this, 1)">&#8250;</button>
+                                <div class="slider-dots">
+                                    ${images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(this, ${i})"></span>`).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        mediaHTML = `<img src="${images[0]}" alt="${project.title}">`;
+                    }
                 }
 
                 // Add date badge if date exists
@@ -289,7 +314,31 @@
                 }, 100);
             });
         });
-
+        
+//project slider
+        function slideProject(btn, direction) {
+            event.stopPropagation();
+            const wrapper = btn.closest('.slider-wrapper');
+            const slides = wrapper.querySelectorAll('.slide');
+            const dots = wrapper.querySelectorAll('.dot');
+            let current = [...slides].findIndex(s => s.classList.contains('active'));
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (current + direction + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+        
+        function goToSlide(dot, index) {
+            event.stopPropagation();
+            const wrapper = dot.closest('.slider-wrapper');
+            const slides = wrapper.querySelectorAll('.slide');
+            const dots = wrapper.querySelectorAll('.dot');
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
         // Initialize
         displayProjects('all');
     </script>
