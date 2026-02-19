@@ -80,17 +80,23 @@
         /* ============================================
            🎨 මෙහි ඔබේ PROJECTS ADD කරන්න
            ============================================
-           
-           📝 Format එක මෙන්න:
-           {
-               title: "Project එකේ නම",
-               category: "branding / social / video / art",
-               description: "Project එක ගැන කෙටි විස්තරයක්",
-               type: "image" හෝ "video",
-               media: "Image/Video එකේ URL",
-               thumbnail: "Video එකට පමණක් - Thumbnail image URL",
-               date: "January 2026" // OPTIONAL - ඔබට date එකක් add කරන්න පුළුවන්
-           }
+
+           📝 Format types:
+
+           1) Single image:
+           { type: "image", media: "file.jpg" }
+
+           2) Multiple images (slider):
+           { type: "image", media: ["a.jpg", "b.jpg", "c.jpg"] }
+
+           3) Single video:
+           { type: "video", media: "file.mp4", thumbnail: "thumb.jpg" }
+
+           4) Mixed images + videos (slider):
+           { type: "mixed", media: [
+               { type: "image", src: "a.jpg" },
+               { type: "video", src: "file.mp4", thumbnail: "thumb.jpg" }
+           ]}
         */
 
         const myProjects = [
@@ -109,7 +115,7 @@
                 type: "image",
                 media: "projects/Branding_BusinessCard.jpg",
                 date: "July 2025"
-            },                   
+            },
             {
                 title: "Video Advertisement for Gamma Construction Company",
                 category: "video",
@@ -156,7 +162,7 @@
                 category: "social",
                 description: "Designed a creative and engaging Facebook post for Gamma Construction to promote their services. The design focuses on a clean layout and strong visual appeal suitable for social media marketing.",
                 type: "image",
-                media: "projects/SM_00015.jpg"
+                media: ["projects/SM_00015.jpg", "projects/G007.jpg", "projects/G008.jpg"]
             },
             {
                 title: "Small Video Advertisement for Gamma Construction",
@@ -168,13 +174,18 @@
                 date: "June 2025"
             },
             {
-                title: "Testing",
+                // EXAMPLE: Mixed images + video in one slider
+                title: "Testing Mixed Slider",
                 category: "branding",
-                description: "...",
-                type: "image",
-                media: ["projects/Branding_Maxwell.jpg", "projects/Branding_Maxwell_Profile.jpg", "projects/Branding_Maxwell3.jpg"],
+                description: "Testing mixed image and video slider.",
+                type: "mixed",
+                media: [
+                    { type: "image", src: "projects/Branding_Maxwell.jpg" },
+                    { type: "image", src: "projects/Branding_Maxwell_Profile.jpg" },
+                    { type: "video", src: "projects/Video_gammav1.mp4", thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800" }
+                ],
                 date: "June 2025"
-            }
+            },
         ];
 
         // DOM Elements
@@ -183,10 +194,10 @@
 
         // Display Projects Function
         function displayProjects(filterType = 'all') {
-            grid.innerHTML = ""; 
-            
-            const filtered = filterType === 'all' 
-                ? myProjects 
+            grid.innerHTML = "";
+
+            const filtered = filterType === 'all'
+                ? myProjects
                 : myProjects.filter(p => p.category === filterType);
 
             if (filtered.length === 0) {
@@ -206,40 +217,76 @@
                 const item = document.createElement('div');
                 item.className = 'portfolio-item';
                 item.style.animationDelay = `${index * 0.1}s`;
-                
+
                 let mediaHTML = '';
-                if (project.type === 'video') {
+
+                // ── MIXED: images and/or videos in one slider ──
+                if (project.type === 'mixed') {
+                    const slides = project.media.map((mediaItem, i) => {
+                        if (mediaItem.type === 'video') {
+                            return `
+                                <div class="slide slide-video-wrapper ${i === 0 ? 'active' : ''}">
+                                    <img src="${mediaItem.thumbnail}" alt="${project.title}" class="video-thumbnail">
+                                    <video src="${mediaItem.src}" loop playsinline class="project-video"></video>
+                                    <div class="play-icon">&#9654;</div>
+                                    <div class="video-controls"><button class="pause-btn">&#9208; Pause</button></div>
+                                </div>
+                            `;
+                        } else {
+                            return `<img src="${mediaItem.src}" alt="${project.title}" class="slide ${i === 0 ? 'active' : ''}">`;
+                        }
+                    }).join('');
+
+                    const dots = project.media.map((mediaItem, i) => `
+                        <span class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(this, ${i})">
+                            ${mediaItem.type === 'video' ? '<i class="fas fa-play" style="font-size:6px;pointer-events:none;"></i>' : ''}
+                        </span>
+                    `).join('');
+
+                    mediaHTML = `
+                        <div class="slider-wrapper">
+                            ${slides}
+                            <button class="slider-btn prev" onclick="slideProject(this, -1)">&#8249;</button>
+                            <button class="slider-btn next" onclick="slideProject(this, 1)">&#8250;</button>
+                            <div class="slider-dots">${dots}</div>
+                        </div>
+                    `;
+
+                // ── SINGLE VIDEO ──
+                } else if (project.type === 'video') {
                     mediaHTML = `
                         <img src="${project.thumbnail}" alt="${project.title}" class="video-thumbnail">
                         <video src="${project.media}" loop playsinline class="project-video"></video>
-                        <div class="play-icon">▶</div>
-                        <div class="video-controls">
-                            <button class="pause-btn">⏸ Pause</button>
-                        </div>
+                        <div class="play-icon">&#9654;</div>
+                        <div class="video-controls"><button class="pause-btn">&#9208; Pause</button></div>
                     `;
-                } else {
-                            const images = Array.isArray(project.media) ? project.media : [project.media];
-                            if (images.length > 1) {
-                                const slides = images.map((src, i) => 
-                                    `<img src="${src}" alt="${project.title}" class="slide ${i === 0 ? 'active' : ''}">`
-                                ).join('');
-                                mediaHTML = `
-                                    <div class="slider-wrapper">
-                                        ${slides}
-                                        <button class="slider-btn prev" onclick="slideProject(this, -1)">&#8249;</button>
-                                        <button class="slider-btn next" onclick="slideProject(this, 1)">&#8250;</button>
-                                        <div class="slider-dots">
-                                            ${images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(this, ${i})"></span>`).join('')}
-                                        </div>
-                                    </div>
-                                `;
-                            } else {
-                                mediaHTML = `<img src="${images[0]}" alt="${project.title}">`;
-                            }
-                        }
 
-                // Add date badge if date exists
-                const dateBadge = project.date ? `<span class="project-date"><i class="far fa-calendar"></i> ${project.date}</span>` : '';
+                // ── IMAGE or IMAGE SLIDER ──
+                } else {
+                    const images = Array.isArray(project.media) ? project.media : [project.media];
+                    if (images.length > 1) {
+                        const slides = images.map((src, i) =>
+                            `<img src="${src}" alt="${project.title}" class="slide ${i === 0 ? 'active' : ''}">`
+                        ).join('');
+                        mediaHTML = `
+                            <div class="slider-wrapper">
+                                ${slides}
+                                <button class="slider-btn prev" onclick="slideProject(this, -1)">&#8249;</button>
+                                <button class="slider-btn next" onclick="slideProject(this, 1)">&#8250;</button>
+                                <div class="slider-dots">
+                                    ${images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(this, ${i})"></span>`).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        mediaHTML = `<img src="${images[0]}" alt="${project.title}">`;
+                    }
+                }
+
+                // Date badge
+                const dateBadge = project.date
+                    ? `<span class="project-date"><i class="far fa-calendar"></i> ${project.date}</span>`
+                    : '';
 
                 item.innerHTML = `
                     ${mediaHTML}
@@ -251,38 +298,65 @@
                     </div>
                 `;
 
-                // Video play/pause functionality
+                // ── Video play/pause for single video ──
                 if (project.type === 'video') {
                     const video = item.querySelector('.project-video');
                     const playIcon = item.querySelector('.play-icon');
                     const pauseBtn = item.querySelector('.pause-btn');
-                    
+
                     playIcon.addEventListener('click', (e) => {
                         e.stopPropagation();
                         video.muted = false;
                         video.play();
                         item.classList.add('video-playing');
                     });
-                    
+
                     pauseBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         video.pause();
                         video.currentTime = 0;
                         item.classList.remove('video-playing');
                     });
-                    
+
                     video.addEventListener('ended', () => {
                         item.classList.remove('video-playing');
                     });
                 }
 
-                // Click functionality
+                // ── Video play/pause for mixed slider videos ──
+                if (project.type === 'mixed') {
+                    item.querySelectorAll('.slide-video-wrapper').forEach(wrapper => {
+                        const video = wrapper.querySelector('.project-video');
+                        const playIcon = wrapper.querySelector('.play-icon');
+                        const pauseBtn = wrapper.querySelector('.pause-btn');
+
+                        playIcon.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            video.muted = false;
+                            video.play();
+                            wrapper.classList.add('video-playing');
+                        });
+
+                        pauseBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            video.pause();
+                            video.currentTime = 0;
+                            wrapper.classList.remove('video-playing');
+                        });
+
+                        video.addEventListener('ended', () => {
+                            wrapper.classList.remove('video-playing');
+                        });
+                    });
+                }
+
+                // Click to filter by category
                 item.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    
+
                     this.classList.add('clicked');
                     setTimeout(() => this.classList.remove('clicked'), 600);
-                    
+
                     setTimeout(() => {
                         const categoryBtn = document.querySelector(`[data-filter="${project.category}"]`);
                         if (categoryBtn && project.category !== filterType) {
@@ -298,29 +372,33 @@
             });
         }
 
-        // Filter functionality
+        // Filter buttons
         filterBtns.forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 filterBtns.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                
                 const category = this.getAttribute('data-filter');
                 displayProjects(category);
-                
-                setTimeout(() => {
-                    window.scrollTo({ top: 250, behavior: 'smooth' });
-                }, 100);
+                setTimeout(() => window.scrollTo({ top: 250, behavior: 'smooth' }), 100);
             });
         });
-        
-//project slider
+
+        // Slider: go forward or back
         function slideProject(btn, direction) {
             event.stopPropagation();
             const wrapper = btn.closest('.slider-wrapper');
             const slides = wrapper.querySelectorAll('.slide');
             const dots = wrapper.querySelectorAll('.dot');
+
+            // Pause any playing video in this slider before switching
+            const playingVideo = wrapper.querySelector('.slide-video-wrapper.video-playing .project-video');
+            if (playingVideo) {
+                playingVideo.pause();
+                playingVideo.currentTime = 0;
+                wrapper.querySelector('.slide-video-wrapper.video-playing').classList.remove('video-playing');
+            }
+
             let current = [...slides].findIndex(s => s.classList.contains('active'));
             slides[current].classList.remove('active');
             dots[current].classList.remove('active');
@@ -328,17 +406,28 @@
             slides[current].classList.add('active');
             dots[current].classList.add('active');
         }
-        
+
+        // Slider: jump to specific slide via dot
         function goToSlide(dot, index) {
             event.stopPropagation();
             const wrapper = dot.closest('.slider-wrapper');
             const slides = wrapper.querySelectorAll('.slide');
             const dots = wrapper.querySelectorAll('.dot');
+
+            // Pause any playing video before switching
+            const playingVideo = wrapper.querySelector('.slide-video-wrapper.video-playing .project-video');
+            if (playingVideo) {
+                playingVideo.pause();
+                playingVideo.currentTime = 0;
+                wrapper.querySelector('.slide-video-wrapper.video-playing').classList.remove('video-playing');
+            }
+
             slides.forEach(s => s.classList.remove('active'));
             dots.forEach(d => d.classList.remove('active'));
             slides[index].classList.add('active');
             dots[index].classList.add('active');
         }
+
         // Initialize
         displayProjects('all');
     </script>
