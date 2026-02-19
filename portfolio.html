@@ -218,25 +218,25 @@
                         </div>
                     `;
                 } else {
-                    const images = Array.isArray(project.media) ? project.media : [project.media];
-                    if (images.length > 1) {
-                        const slides = images.map((src, i) => 
-                            `<img src="${src}" alt="${project.title}" class="slide ${i === 0 ? 'active' : ''}">`
-                        ).join('');
-                        mediaHTML = `
-                            <div class="slider-wrapper">
-                                ${slides}
-                                <button class="slider-btn prev" onclick="slideProject(this, -1)">&#8249;</button>
-                                <button class="slider-btn next" onclick="slideProject(this, 1)">&#8250;</button>
-                                <div class="slider-dots">
-                                    ${images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(this, ${i})"></span>`).join('')}
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        mediaHTML = `<img src="${images[0]}" alt="${project.title}">`;
-                    }
-                }
+                            const images = Array.isArray(project.media) ? project.media : [project.media];
+                            if (images.length > 1) {
+                                const slides = images.map((src, i) => 
+                                    `<img src="${src}" alt="${project.title}" class="slide ${i === 0 ? 'active' : ''}">`
+                                ).join('');
+                                mediaHTML = `
+                                    <div class="slider-wrapper">
+                                        ${slides}
+                                        <button class="slider-btn prev" onclick="slideProject(this, -1)">&#8249;</button>
+                                        <button class="slider-btn next" onclick="slideProject(this, 1)">&#8250;</button>
+                                        <div class="slider-dots">
+                                            ${images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(this, ${i})"></span>`).join('')}
+                                        </div>
+                                    </div>
+                                `;
+                            } else {
+                                mediaHTML = `<img src="${images[0]}" alt="${project.title}">`;
+                            }
+                        }
 
                 // Add date badge if date exists
                 const dateBadge = project.date ? `<span class="project-date"><i class="far fa-calendar"></i> ${project.date}</span>` : '';
