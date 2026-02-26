@@ -12,7 +12,7 @@
 
     <header>
         <a href="index.html" class="logo">DINITH<span>DILSHAN</span></a>
-        <nav>
+        <nav id="mainNav">
             <a href="index.html">Home</a>
             <a href="portfolio.html">Portfolio</a>
             <a href="contact.html" class="active">Contact</a>
@@ -20,7 +20,13 @@
                 <i class="fas fa-moon"></i>
             </button>
         </nav>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
+    <div class="nav-overlay" id="navOverlay"></div>
 
     <main class="contact-container">
         <section class="contact-info">
@@ -48,7 +54,7 @@
                     <i class="far fa-envelope" style="color: #fbbc05;"></i>
                     <div><h3>Email</h3><p>Direct Inquiry</p></div>
                 </a>
-                <a href="https://www.tiktok.com/@dinith.graphics" target="_blank" class="social-card">
+                <a href="https://www.tiktok.com/@yourusername" target="_blank" class="social-card">
                     <i class="fab fa-tiktok" style="color: #010101;"></i>
                     <div><h3>TikTok</h3><p>Follow Me</p></div>
                 </a>
@@ -92,7 +98,32 @@
     </footer>
 
     <script>
-        // Theme Toggle Functionality
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('mainNav');
+        const navOverlay = document.getElementById('navOverlay');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mainNav.classList.toggle('open');
+            navOverlay.classList.toggle('open');
+        });
+
+        navOverlay.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mainNav.classList.remove('open');
+            navOverlay.classList.remove('open');
+        });
+
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mainNav.classList.remove('open');
+                navOverlay.classList.remove('open');
+            });
+        });
+
+        // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const icon = themeToggle.querySelector('i');
