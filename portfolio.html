@@ -12,7 +12,7 @@
 
     <header>
         <a href="index.html" class="logo">DINITH<span>DILSHAN</span></a>
-        <nav>
+        <nav id="mainNav">
             <a href="index.html">Home</a>
             <a href="portfolio.html" class="active">Portfolio</a>
             <a href="contact.html">Contact</a>
@@ -20,7 +20,13 @@
                 <i class="fas fa-moon"></i>
             </button>
         </nav>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
+    <div class="nav-overlay" id="navOverlay"></div>
 
     <div class="portfolio-header">
         <h1>Selected Projects</h1>
@@ -51,6 +57,31 @@
     </footer>
 
     <script>
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('mainNav');
+        const navOverlay = document.getElementById('navOverlay');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mainNav.classList.toggle('open');
+            navOverlay.classList.toggle('open');
+        });
+
+        navOverlay.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mainNav.classList.remove('open');
+            navOverlay.classList.remove('open');
+        });
+
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mainNav.classList.remove('open');
+                navOverlay.classList.remove('open');
+            });
+        });
+
         // Theme Toggle Functionality
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
@@ -84,18 +115,18 @@
            📝 Format types:
 
            1) Single image:
-           { type: "image", media: "file.jpg" }
+           { type: "image", media: "file.webp" }
 
            2) Multiple images (slider):
-           { type: "image", media: ["a.jpg", "b.jpg", "c.jpg"] }
+           { type: "image", media: ["a.webp", "b.webp", "c.webp"] }
 
            3) Single video:
-           { type: "video", media: "file.mp4", thumbnail: "thumb.jpg" }
+           { type: "video", media: "file.mp4", thumbnail: "thumb.webp" }
 
            4) Mixed images + videos (slider):
            { type: "mixed", media: [
-               { type: "image", src: "a.jpg" },
-               { type: "video", src: "file.mp4", thumbnail: "thumb.jpg" }
+               { type: "image", src: "a.webp" },
+               { type: "video", src: "file.mp4", thumbnail: "thumb.webp" }
            ]}
         */
 
@@ -105,7 +136,7 @@
                 category: "branding",
                 description: "Designed a professional logo for Maxwell Engineering using client-provided text and reference samples. The design follows a clean, modern style with a strong red and blue color combination to represent trust, strength, and engineering excellence.",
                 type: "image",
-                media: "projects/Branding_Maxwell.jpg",
+                media: "projects/Branding_Maxwell.webp",
                 date: "June 2025"
             },
             {
@@ -113,7 +144,7 @@
                 category: "branding",
                 description: "Designed professional business cards for Maxwell Engineering, using a clean layout and brand-consistent colors for a modern and corporate look.",
                 type: "image",
-                media: "projects/Branding_BusinessCard.jpg",
+                media: "projects/Branding_BusinessCard.webp",
                 date: "July 2025"
             },
             {
@@ -130,22 +161,42 @@
                 category: "branding",
                 description: "Designed a professional company profile for Maxwell Engineering, including detailed company information. The layout follows a clean and modern design style to clearly present the company's services, strengths, and identity.",
                 type: "image",
-                media: "projects/Branding_Maxwell_Profile.jpg",
+                media: "projects/Branding_Maxwell_Profile.webp",
                 date: "August 2025"
             },
             {
-                title: "Product Launch Campaign",
-                category: "social",
-                description: "Eye-catching social media design series for new product announcement.",
+                title: "Maxwell Engineering Corporate Visuals",
+                category: "branding",
+                description: "Created a series of professional social media graphics and recruitment posters for Maxwell Engineering. The designs focus on establishing a strong corporate identity while highlighting industrial services and career opportunities through clean, high-impact layouts.",
                 type: "image",
-                media: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800"
+                media: ["projects/MaxwellP (1).webp", "projects/MaxwellP (2).webp", "projects/MaxwellP (3).webp","projects/MaxwellP (4).webp"]
             },
+
+            // {
+            //     title: "Product Launch Campaign",
+            //     category: "social",
+            //     description: "Eye-catching social media design series for new product announcement.",
+            //     type: "image",
+            //     media: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800"
+            // },
+            {
+                title: "Digital Poson Thorana | RUSL",
+                category: "MOTION GRAPHICS",
+                description: "A comprehensive digital media project involving asset creation in Photoshop, complex motion sequencing in After Effects, and final cinematic production in Premiere Pro to create an immersive digital experience of a traditional Thorana.",
+                type: "mixed",
+                media: [
+                    // { type: "image", src: "projects/Branding_Maxwell.webp" },
+                    // { type: "image", src: "projects/Branding_Maxwell_Profile.webp" },
+                    { type: "video", src: "projects/Video_gammav1.mp4", thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800" }
+                ],
+                date: "June 2025"
+            },           
             {
                 title: "Book Cover Design for ICT Class",
                 category: "art",
                 description: "Designed a creative and professional book cover for an ICT class conducted by Ms. Nadeeka Fernando. The design focuses on a clean layout and visually appealing elements suitable for educational content.",
                 type: "image",
-                media: "projects/Art_ICTNadeeka.jpg",
+                media: "projects/Art_ICTNadeeka.webp",
                 date: "May 2024"
             },
             {
@@ -162,7 +213,7 @@
                 category: "social",
                 description: "Designed a creative and engaging Facebook post for Gamma Construction to promote their services. The design focuses on a clean layout and strong visual appeal suitable for social media marketing.",
                 type: "image",
-                media: ["projects/SM_00015.jpg", "projects/G007.jpg", "projects/G008.jpg"]
+                media: ["projects/SM_00015.webp", "projects/G007.webp", "projects/G008.webp"]
             },
             {
                 title: "Small Video Advertisement for Gamma Construction",
@@ -174,14 +225,32 @@
                 date: "June 2025"
             },
             {
+                title: "E-commerce Promotional Banner Suite - MyCosco.lk",
+                category: "branding",
+                description: "Visualized and designed eye-catching promotional banners for electronic and lifestyle products, optimized for high click-through rates and a seamless web interface.",
+                type: "image",
+                media: [ "projects/cosco (7).webp","projects/cosco_thm.webp","projects/cosco (6).webp", "projects/cosco (5).webp", "projects/cosco (4).webp", "projects/cosco (3).webp", "projects/cosco (2).webp","projects/cosco (8).webp", "projects/cosco (1).webp"],
+                thumbnail: "projects/cosco_thm.webp",
+                date: "April 2025"
+            },
+            {
+                title: "Sera Naturish Product Labels",
+                category: "branding",
+                description: "Premium labels for dehydrated fruits, emphasizing a natural and healthy lifestyle through clean typography and fruit-centric visuals.",
+                type: "image",
+                media: ["projects/Lables S (4).webp","projects/Lables S (2).webp","projects/Lables S (3).webp","projects/Lables S (1).webp","projects/Lables S (5).webp","projects/Lables S (6).webp",],
+                thumbnail: "projects/Lables S (4).webp",
+                date: "October 2025"
+            },
+            {
                 // EXAMPLE: Mixed images + video in one slider
                 title: "Testing Mixed Slider",
                 category: "branding",
                 description: "Testing mixed image and video slider.",
                 type: "mixed",
                 media: [
-                    { type: "image", src: "projects/Branding_Maxwell.jpg" },
-                    { type: "image", src: "projects/Branding_Maxwell_Profile.jpg" },
+                    { type: "image", src: "projects/Branding_Maxwell.webp" },
+                    { type: "image", src: "projects/Branding_Maxwell_Profile.webp" },
                     { type: "video", src: "projects/Video_gammav1.mp4", thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800" }
                 ],
                 date: "June 2025"
