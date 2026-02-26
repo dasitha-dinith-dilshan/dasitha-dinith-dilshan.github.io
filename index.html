@@ -12,7 +12,7 @@
 
 <header>
     <a href="index.html" class="logo">DINITH<span>DILSHAN</span></a>
-    <nav>
+    <nav id="mainNav">
         <a href="index.html" class="active">Home</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="contact.html">Contact</a>
@@ -20,7 +20,13 @@
             <i class="fas fa-moon"></i>
         </button>
     </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </header>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <section class="hero-slider">
     <button class="control-btn prev-btn" aria-label="Previous slide">&#10094;</button>
@@ -72,7 +78,7 @@
             </div>
             <div class="profile-stats">
                 <div class="stat-item">
-                    <h3>2+</h3>
+                    <h3>3+</h3>
                     <p>Years Experience</p>
                 </div>
                 <div class="stat-item">
@@ -88,7 +94,7 @@
         <div class="about-content">
             <span class="about-label">About Me</span>
             <h2>Turning Ideas Into Visual Masterpieces</h2>
-            <p>I'm Dinith Dilshan, a passionate graphic designer and visual artist based in Colombo, Sri Lanka. With over 5 years of experience, I specialize in creating compelling brand identities, engaging social media content, and stunning visual designs that help businesses stand out.</p>
+            <p>I'm Dinith Dilshan, a passionate graphic designer and visual artist based in Colombo, Sri Lanka. With over 3 years of experience, I specialize in creating compelling brand identities, engaging social media content, and stunning visual designs that help businesses stand out.</p>
             <p>My approach combines creativity with strategic thinking, ensuring every design not only looks beautiful but also serves its purpose effectively. From logo design to video editing, I bring your vision to life with precision and passion.</p>
             <div class="skills-tags">
                 <span class="skill-tag">Branding</span>
@@ -155,6 +161,31 @@
 </footer>
 
 <script>
+    // Hamburger Menu
+    const hamburger = document.getElementById('hamburger');
+    const mainNav = document.getElementById('mainNav');
+    const navOverlay = document.getElementById('navOverlay');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mainNav.classList.toggle('open');
+        navOverlay.classList.toggle('open');
+    });
+
+    navOverlay.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mainNav.classList.remove('open');
+        navOverlay.classList.remove('open');
+    });
+
+    mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mainNav.classList.remove('open');
+            navOverlay.classList.remove('open');
+        });
+    });
+
     // Theme Toggle Functionality
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
