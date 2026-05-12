@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates | Dinith Dilshan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Certificates Page Specific Styles ── */
+        .certificates-hero {
+            padding: 140px 40px 60px;
+            text-align: center;
+        }
+        .certificates-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .certificates-hero h1 span {
+            color: var(--accent);
+        }
+        .certificates-hero p {
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* ── Filter Tabs ── */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        .filter-tab {
+            padding: 8px 22px;
+            border-radius: 50px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* ── Certificates Grid ── */
+        .certificates-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        /* ── Certificate Card ── */
+        .cert-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cert-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        /* PDF Preview Area */
+        .cert-preview {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: #f0f0f0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        [data-theme="dark"] .cert-preview {
+            background: #1a1a2e;
+        }
+        .cert-preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+        /* Fallback icon when PDF not loaded */
+        .cert-preview-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--text-muted);
+        }
+        .cert-preview-placeholder i {
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.7;
+        }
+        .cert-preview-placeholder span {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        /* Overlay on hover */
+        .cert-preview-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            gap: 14px;
+        }
+        .cert-preview:hover .cert-preview-overlay {
+            opacity: 1;
+        }
+        .overlay-btn {
+            padding: 9px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: transform 0.2s;
+        }
+        .overlay-btn:hover {
+            transform: scale(1.05);
+        }
+        .overlay-btn.preview-btn {
+            background: #fff;
+            color: #111;
+        }
+        .overlay-btn.download-btn {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* Card Info */
+        .cert-info {
+            padding: 20px 22px;
+        }
+        .cert-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 50px;
+            background: var(--accent);
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .cert-info h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        .cert-info .cert-issuer {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+        .cert-info .cert-issuer i {
+            margin-right: 5px;
+        }
+        .cert-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .cert-btn {
+            flex: 1;
+            padding: 10px 0;
+            border-radius: 9px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+        .cert-btn:hover,
+        .cert-btn.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .cert-btn.primary:hover {
+            filter: brightness(1.1);
+        }
+
+        /* ── Lightbox Modal ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.88);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .lightbox.open {
+            display: flex;
+        }
+        .lightbox-inner {
+            position: relative;
+            width: 100%;
+            max-width: 860px;
+            height: 90vh;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .lightbox-header {
+            padding: 14px 20px;
+            background: #111;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .lightbox-header h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .lightbox-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .lightbox-actions a,
+        .lightbox-close {
+            padding: 7px 16px;
+            border-radius: 7px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .lightbox-actions a {
+            background: var(--accent, #4f46e5);
+            color: #fff;
+        }
+        .lightbox-close {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+        .lightbox-body {
+            flex: 1;
+            overflow: hidden;
+        }
+        .lightbox-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Empty state */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 14px;
+            display: block;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 600px) {
+            .certificates-hero { padding: 120px 20px 40px; }
+            .certificates-section { padding: 0 20px 60px; }
+            .certs-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">DINITH<span>DILSHAN</span></a>
+    <nav id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="certificates.html" class="active">Certificates</a>
+        <a href="contact.html">Contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- Hero -->
+<div class="certificates-hero">
+    <h1>My <span>Certificates</span></h1>
+    <p>Professional credentials & achievements — preview or download any certificate below.</p>
+</div>
+
+<!-- Filter Tabs -->
+<div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" data-filter="all">All</button>
+    <button class="filter-tab" data-filter="design">Design</button>
+    <button class="filter-tab" data-filter="video">Video</button>
+    <button class="filter-tab" data-filter="marketing">Marketing</button>
+    <button class="filter-tab" data-filter="other">Other</button>
+</div>
+
+<!-- Certificates Grid -->
+<section class="certificates-section">
+    <div class="certs-grid" id="certsGrid">
+
+        <!-- ══════════════════════════════════════════════════
+             SAMPLE CERTIFICATE CARDS
+             Replace 'file', 'title', 'issuer', 'category' fields
+             with your actual certificate data.
+             For 'file': path to your PDF, e.g. "certificates/graphic-design.pdf"
+        ═══════════════════════════════════════════════════ -->
+
+        <!-- Card 1 -->
+        <div class="cert-card" data-category="design">
+            <div class="cert-preview" onclick="openLightbox('certificates/UC-6de456e5-7009-4b4d-988a-2e81dd0123dd.pdf', 'Graphic Design Certificate')">
+                <div class="cert-preview-placeholder">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Graphic Design Certificate</span>
+                </div>
+                <!-- Uncomment this if you want PDF iframe previews: -->
+                <!-- <iframe src="certificates/UC-6de456e5-7009-4b4d-988a-2e81dd0123dd.pdf#toolbar=0&navpanes=0" loading="lazy"></iframe> -->
+                
+                <div class="cert-preview-overlay">
+                    <button class="overlay-btn preview-btn"><i class="fas fa-eye"></i> Preview</button>
+                    <a class="overlay-btn download-btn" href="certificates/UC-6de456e5-7009-4b4d-988a-2e81dd0123dd.pdf" download onclick="event.stopPropagation()">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="cert-info">
+                <span class="cert-badge">Design</span>
+                <h3>Graphic Design Fundamentals</h3>
+                <p class="cert-issuer"><i class="fas fa-building"></i> Udemy</p>
+                <div class="cert-actions">
+                    <button class="cert-btn" onclick="openLightbox('certificates/UC-6de456e5-7009-4b4d-988a-2e81dd0123dd.pdf', 'Graphic Design Certificate')">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <a class="cert-btn primary" href="certificates/UC-6de456e5-7009-4b4d-988a-2e81dd0123dd.pdf" download>
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="cert-card" data-category="video">
+            <div class="cert-preview" onclick="openLightbox('certificates/UC-5800bf60-2e45-4ebc-873d-80d1cb03df5d.pdf', 'Video Editing Certificate')">
+                <div class="cert-preview-placeholder">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Video Editing Certificate</span>
+                </div>
+                <div class="cert-preview-overlay">
+                    <button class="overlay-btn preview-btn"><i class="fas fa-eye"></i> Preview</button>
+                    <a class="overlay-btn download-btn" href="certificates/UC-5800bf60-2e45-4ebc-873d-80d1cb03df5d.pdf" download onclick="event.stopPropagation()">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="cert-info">
+                <span class="cert-badge">Video</span>
+                <h3>Professional Video Editing</h3>
+                <p class="cert-issuer"><i class="fas fa-building"></i> Udemy</p>
+                <div class="cert-actions">
+                    <button class="cert-btn" onclick="openLightbox('certificates/UC-5800bf60-2e45-4ebc-873d-80d1cb03df5d.pdf', 'Video Editing Certificate')">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <a class="cert-btn primary" href="certificates/UC-5800bf60-2e45-4ebc-873d-80d1cb03df5d.pdf" download>
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="cert-card" data-category="marketing">
+            <div class="cert-preview" onclick="openLightbox('certificates/UC-5800bf60-2e45-4ebc-873d-80d1cb03df5d.pdf', 'Digital Marketing Certificate')">
+                <div class="cert-preview-placeholder">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Video Editing - Premire Pro</span>
+                </div>
+                <div class="cert-preview-overlay">
+                    <button class="overlay-btn preview-btn"><i class="fas fa-eye"></i> Preview</button>
+                    <a class="overlay-btn download-btn" href="UC-5800bf60-2e45-4ebc-873d-80d1cb03df5d.pdf" download onclick="event.stopPropagation()">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="cert-info">
+                <span class="cert-badge">Video</span>
+                <h3>Premire Pro</h3>
+                <p class="cert-issuer"><i class="fas fa-building"></i> Udemy</p>
+                <div class="cert-actions">
+                    <button class="cert-btn" onclick="openLightbox('UC-5800bf60-2e45-4ebc-873d-80d1cb03df5d.pdf', 'Digital Marketing Certificate')">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <a class="cert-btn primary" href="UC-5800bf60-2e45-4ebc-873d-80d1cb03df5d.pdf" download>
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="cert-card" data-category="marketing">
+            <div class="cert-preview" onclick="openLightbox('certificates/UC-bb116f99-fc5e-4432-a8a6-c3f7da4ea489.pdf', 'Digital Marketing Certificate')">
+                <div class="cert-preview-placeholder">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Social Media Graphics Design Certificate</span>
+                </div>
+                <div class="cert-preview-overlay">
+                    <button class="overlay-btn preview-btn"><i class="fas fa-eye"></i> Preview</button>
+                    <a class="overlay-btn download-btn" href="certificates/UC-bb116f99-fc5e-4432-a8a6-c3f7da4ea489.pdf" download onclick="event.stopPropagation()">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="cert-info">
+                <span class="cert-badge">Design</span>
+                <h3>Social Media Graphics Design</h3>
+                <p class="cert-issuer"><i class="fas fa-building"></i> Udemy</p>
+                <div class="cert-actions">
+                    <button class="cert-btn" onclick="openLightbox('certificates/UC-bb116f99-fc5e-4432-a8a6-c3f7da4ea489.pdf', 'Digital Marketing Certificate')">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <a class="cert-btn primary" href="certificates/UC-bb116f99-fc5e-4432-a8a6-c3f7da4ea489.pdf" download>
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card sample -->
+        <!-- <div class="cert-card" data-category="marketing">
+            <div class="cert-preview" onclick="openLightbox('certificates/sample-certificate-3.pdf', 'Digital Marketing Certificate')">
+                <div class="cert-preview-placeholder">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Digital Marketing Certificate</span>
+                </div>
+                <div class="cert-preview-overlay">
+                    <button class="overlay-btn preview-btn"><i class="fas fa-eye"></i> Preview</button>
+                    <a class="overlay-btn download-btn" href="certificates/sample-certificate-3.pdf" download onclick="event.stopPropagation()">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="cert-info">
+                <span class="cert-badge">Marketing</span>
+                <h3>Digital Marketing Fundamentals</h3>
+                <p class="cert-issuer"><i class="fas fa-building"></i> Google Digital Garage</p>
+                <div class="cert-actions">
+                    <button class="cert-btn" onclick="openLightbox('certificates/sample-certificate-3.pdf', 'Digital Marketing Certificate')">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <a class="cert-btn primary" href="certificates/sample-certificate-3.pdf" download>
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</section>
+
+<!-- ── Lightbox Modal ── -->
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-inner">
+        <div class="lightbox-header">
+            <h4 id="lightboxTitle">Certificate Preview</h4>
+            <div class="lightbox-actions">
+                <a id="lightboxDownload" href="#" download>
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+                <button class="lightbox-close" onclick="closeLightbox()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+        <div class="lightbox-body">
+            <iframe id="lightboxFrame" src="" title="Certificate Preview"></iframe>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Dinith Dilshan. All rights reserved.</p>
+</footer>
+
+<script>
+    // ── Hamburger Menu ──
+    const hamburger = document.getElementById('hamburger');
+    const mainNav = document.getElementById('mainNav');
+    const navOverlay = document.getElementById('navOverlay');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mainNav.classList.toggle('open');
+        navOverlay.classList.toggle('open');
+    });
+    navOverlay.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mainNav.classList.remove('open');
+        navOverlay.classList.remove('open');
+    });
+    mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mainNav.classList.remove('open');
+            navOverlay.classList.remove('open');
+        });
+    });
+
+    // ── Theme Toggle ──
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    body.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    themeToggle.addEventListener('click', () => {
+        const theme = body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        body.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateThemeIcon(theme);
+    });
+    function updateThemeIcon(theme) {
+        icon.classList.toggle('fa-moon', theme !== 'dark');
+        icon.classList.toggle('fa-sun', theme === 'dark');
+    }
+
+    // ── Filter Tabs ──
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            const filter = tab.dataset.filter;
+            document.querySelectorAll('.cert-card').forEach(card => {
+                const show = filter === 'all' || card.dataset.category === filter;
+                card.style.display = show ? 'block' : 'none';
+            });
+        });
+    });
+
+    // ── Lightbox ──
+    function openLightbox(pdfPath, title) {
+        const lightbox = document.getElementById('lightbox');
+        document.getElementById('lightboxTitle').textContent = title;
+        document.getElementById('lightboxFrame').src = pdfPath;
+        document.getElementById('lightboxDownload').href = pdfPath;
+        document.getElementById('lightboxDownload').download = title + '.pdf';
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+        document.getElementById('lightboxFrame').src = '';
+        document.body.style.overflow = '';
+    }
+    // Close on backdrop click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) closeLightbox();
+    });
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+
+    // ── Scroll Animations ──
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.cert-card').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `all 0.5s ease-out ${i * 0.08}s`;
+        observer.observe(el);
+    });
+</script>
+
+</body>
+</html>
